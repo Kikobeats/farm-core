@@ -1,9 +1,5 @@
 language: node_js
 node_js:
-  - "0.10"
-branches:
-  only:
-    - master
-notifications:
-  email:
-    - rod@vagg.org
+  - "stable"
+  - "6"
+after_success: npm run coveralls

@@ -10,11 +10,13 @@
 
 module.exports = function (points, callback) {
   var inside = 0
-    , i = points
+  var i = points
 
-  while (i--)
-    if (Math.pow(Math.random(), 2) + Math.pow(Math.random(), 2) <= 1)
+  while (i--) {
+    if (Math.pow(Math.random(), 2) + Math.pow(Math.random(), 2) <= 1) {
       inside++
+    }
+  }
 
   callback(null, (inside / points) * 4)
 }
