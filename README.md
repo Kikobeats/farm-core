@@ -18,15 +18,17 @@ module.exports = function (inp, callback) {
 And a main file:
 
 ```js
-var workerFarm = require('worker-farm')
-  , workers    = workerFarm(require.resolve('./child'))
-  , ret        = 0
+const workerFarm = require('worker-farm')
+const workers = workerFarm(require.resolve('./child'))
+let ret = 0
 
-for (var i = 0; i < 10; i++) {
-  workers('#' + i + ' FOO', function (err, outp) {
-    console.log(outp)
-    if (++ret == 10)
+for (let i = 0; i < 10; i++) {
+  workers('#' + i + ' FOO', function (err, output) {
+    if (err) throw err
+    console.log(output)
+    if (++ret === 10) {
       workerFarm.end(workers)
+    }
   })
 }
 ```
@@ -103,13 +105,13 @@ If you don't provide an `options` object then the following defaults will be use
 
 ```js
 {
-    maxCallsPerWorker           : Infinity
-  , maxConcurrentWorkers        : require('os').cpus().length
-  , maxConcurrentCallsPerWorker : 10
-  , maxConcurrentCalls          : Infinity
-  , maxCallTime                 : Infinity
-  , maxRetries                  : Infinity
-  , autoStart                   : false
+  maxCallsPerWorker: Infinity,
+  maxConcurrentWorkers: require('os').cpus().length,
+  maxConcurrentCallsPerWorker: 10,
+  maxConcurrentCalls: Infinity,
+  maxCallTime: Infinity,
+  maxRetries: Infinity,
+  autoStart: false
 }
 ```
 
